@@ -261,13 +261,14 @@
   let VapiCtor;
   try {
     log("Chargement du SDK Vapi…");
-    const mod = await withTimeout(import("https://cdn.jsdelivr.net/npm/@vapi-ai/web/+esm"), 12000, "Le chargement de l'assistant");
+    const mod = await withTimeout(import("https://cdn.jsdelivr.net/npm/@vapi-ai/web/+esm"), 20000, "Le chargement de l'assistant");
     VapiCtor = mod.default || mod.Vapi || mod;
     if (typeof VapiCtor !== "function") throw new Error("SDK chargé mais mal formé");
     log("SDK chargé avec succès.");
   } catch (e) {
     btnLabel.textContent = "Indisponible";
-    showError("Impossible de charger l'assistant. Si vous utilisez un bloqueur de publicités (AdBlock, uBlock…), désactivez-le pour ce site puis rechargez la page.");
+    const detail = (e && e.message) ? e.message : "erreur inconnue";
+    showError("Impossible de charger l'assistant (" + detail + "). Si vous utilisez un bloqueur de publicités (AdBlock, uBlock…), désactivez-le pour ce site puis rechargez la page.");
     return; // talkBtn stays disabled: nothing loaded to retry with until the page reloads
   }
 

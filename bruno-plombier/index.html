@@ -93,7 +93,7 @@
   .widget-panel h2 { width: 100%; text-align: left; }
 
   .orb-zone { position: relative; width: 132px; height: 132px; display: flex; align-items: center; justify-content: center; }
-  .orb-ring { position: absolute; inset: 0; border-radius: 50%; border: 2px solid var(--accent-soft); transition: all 0.4s ease; }
+  .orb-ring { position: absolute; inset: 0; border-radius: 50%; border: 2px solid var(--accent-soft); transition: all 0.4s ease; pointer-events: none; }
   .orb-ring.pulse { animation: pulse 1.6s ease-out infinite; }
   @keyframes pulse { 0% { transform: scale(0.85); opacity: 0.9; } 100% { transform: scale(1.35); opacity: 0; } }
   @media (prefers-reduced-motion: reduce) { .orb-ring.pulse { animation: none; } }
@@ -264,7 +264,7 @@
   try {
     log("Chargement du SDK Vapi…");
     const mod = await withTimeout(import("https://cdn.jsdelivr.net/npm/@vapi-ai/web/+esm"), 20000, "Le chargement de l'assistant");
-    VapiCtor = mod.default || mod.Vapi || mod;
+    VapiCtor = (mod.default && mod.default.default) || mod.default || mod.Vapi || mod;
     if (typeof VapiCtor !== "function") throw new Error("SDK chargé mais mal formé");
     log("SDK chargé avec succès.");
   } catch (e) {

@@ -4,139 +4,190 @@
   @import url('https://fonts.googleapis.com/css2?family=Archivo:wght@600;700;800&family=IBM+Plex+Sans:ital,wght@0,400;0,500;0,600;1,400&family=IBM+Plex+Mono:wght@400;500;600&display=swap');
 
   :root {
-    --paper: #F6F4EF;
-    --paper-raised: #FFFFFF;
-    --ink: #1C2430;
-    --ink-soft: #4B5563;
-    --line: #DEDACE;
-    --line-strong: #C9C3B3;
-    --accent: #0E7C7E;
-    --accent-ink: #075052;
-    --accent-soft: #E1F0EE;
-    --live: #C0392B;
-    --live-soft: #FBE7E4;
-    --shadow: 0 1px 2px rgba(28,36,48,0.06), 0 8px 24px rgba(28,36,48,0.06);
+    --bg: #F1F4F5;
+    --surface: #FFFFFF;
+    --surface-sunken: #F7F8F9;
+    --ink: #10151B;
+    --ink-soft: #576273;
+    --ink-faint: #8A94A3;
+    --line: #E1E6EA;
+    --line-strong: #CBD3DA;
+    --accent: #0C7C74;
+    --accent-strong: #075C56;
+    --accent-soft: #E1F2EF;
+    --live: #C6402F;
+    --live-soft: #FBE9E6;
+    --shadow-sm: 0 1px 2px rgba(16,21,27,0.05);
+    --shadow-lg: 0 1px 2px rgba(16,21,27,0.05), 0 16px 40px rgba(16,21,27,0.09);
   }
   @media (prefers-color-scheme: dark) {
     :root:not([data-theme="light"]) {
-      --paper: #14181D; --paper-raised: #1B2129; --ink: #EDEAE3; --ink-soft: #A9AFB9;
-      --line: #2C333C; --line-strong: #3A424D; --accent: #35C2BE; --accent-ink: #8FE9E4;
-      --accent-soft: #17302E; --live: #FF6B5C; --live-soft: #2E1815;
-      --shadow: 0 1px 2px rgba(0,0,0,0.3), 0 12px 32px rgba(0,0,0,0.35);
+      --bg: #0E1216; --surface: #171C22; --surface-sunken: #12161B; --ink: #ECEEF0; --ink-soft: #9BA5B2; --ink-faint: #6C7684;
+      --line: #262D35; --line-strong: #333B44; --accent: #34C3B8; --accent-strong: #8FE9E0; --accent-soft: #15302D;
+      --live: #FF7A68; --live-soft: #2E1815;
+      --shadow-sm: 0 1px 2px rgba(0,0,0,0.3); --shadow-lg: 0 1px 2px rgba(0,0,0,0.3), 0 20px 48px rgba(0,0,0,0.45);
     }
   }
   :root[data-theme="dark"] {
-    --paper: #14181D; --paper-raised: #1B2129; --ink: #EDEAE3; --ink-soft: #A9AFB9;
-    --line: #2C333C; --line-strong: #3A424D; --accent: #35C2BE; --accent-ink: #8FE9E4;
-    --accent-soft: #17302E; --live: #FF6B5C; --live-soft: #2E1815;
-    --shadow: 0 1px 2px rgba(0,0,0,0.3), 0 12px 32px rgba(0,0,0,0.35);
+    --bg: #0E1216; --surface: #171C22; --surface-sunken: #12161B; --ink: #ECEEF0; --ink-soft: #9BA5B2; --ink-faint: #6C7684;
+    --line: #262D35; --line-strong: #333B44; --accent: #34C3B8; --accent-strong: #8FE9E0; --accent-soft: #15302D;
+    --live: #FF7A68; --live-soft: #2E1815;
+    --shadow-sm: 0 1px 2px rgba(0,0,0,0.3); --shadow-lg: 0 1px 2px rgba(0,0,0,0.3), 0 20px 48px rgba(0,0,0,0.45);
   }
 
   * { box-sizing: border-box; }
   body {
-    background: var(--paper); color: var(--ink);
+    background: var(--bg); color: var(--ink);
     font-family: 'IBM Plex Sans', system-ui, sans-serif;
-    padding: 0 20px; line-height: 1.55;
-    min-height: 100vh; display: flex; align-items: center; justify-content: center;
+    margin: 0; line-height: 1.55;
   }
-  .wrap { max-width: 480px; width: 100%; padding-block: 48px; margin: 0 auto; }
-  h1, h2 { font-family: 'Archivo', system-ui, sans-serif; text-wrap: balance; letter-spacing: -0.01em; }
+  h1, h2, h3 { font-family: 'Archivo', system-ui, sans-serif; text-wrap: balance; letter-spacing: -0.01em; margin: 0; }
+  a { color: var(--accent-strong); }
 
+  .shell { max-width: 920px; margin: 0 auto; padding: 28px 20px 56px; }
+
+  .topbar {
+    display: flex; align-items: center; justify-content: space-between; gap: 12px;
+    padding-bottom: 22px; margin-bottom: 8px; border-bottom: 1px solid var(--line);
+    font-family: 'IBM Plex Mono', monospace; font-size: 11.5px; letter-spacing: 0.05em; color: var(--ink-faint);
+  }
+  .brand { display: flex; align-items: center; gap: 7px; color: var(--ink-soft); font-weight: 500; text-transform: uppercase; }
+  .brand .dot { width: 6px; height: 6px; border-radius: 50%; background: var(--accent); box-shadow: 0 0 0 3px var(--accent-soft); }
+  .topbar .note { text-align: right; max-width: 40%; }
+
+  .hero { padding: 40px 0 30px; text-align: center; }
   .eyebrow {
     font-family: 'IBM Plex Mono', monospace; font-size: 12px; letter-spacing: 0.09em;
-    text-transform: uppercase; color: var(--accent-ink); text-align: center;
-    display: flex; align-items: center; justify-content: center; gap: 8px; margin-bottom: 10px;
+    text-transform: uppercase; color: var(--accent-strong); margin-bottom: 12px;
+    display: inline-flex; align-items: center; gap: 8px; background: var(--accent-soft);
+    padding: 5px 12px 5px 10px; border-radius: 999px;
   }
-  .eyebrow .dot { width: 6px; height: 6px; border-radius: 50%; background: var(--accent); box-shadow: 0 0 0 3px var(--accent-soft); }
+  .hero h1 { font-size: clamp(28px, 4vw, 38px); font-weight: 800; margin-bottom: 10px; }
+  .hero .dek { color: var(--ink-soft); font-size: 15.5px; max-width: 54ch; margin: 0 auto; }
 
-  h1 { font-size: 26px; font-weight: 800; text-align: center; margin: 0 0 6px; }
-  .dek { color: var(--ink-soft); font-size: 14.5px; text-align: center; max-width: 40ch; margin: 0 auto 32px; }
-
-  .card {
-    background: var(--paper-raised); border: 1px solid var(--line); border-radius: 16px;
-    box-shadow: var(--shadow); padding: 32px 24px; display: flex; flex-direction: column;
-    align-items: center; gap: 20px;
+  .facts {
+    display: grid; grid-template-columns: repeat(auto-fit, minmax(190px, 1fr)); gap: 1px;
+    background: var(--line); border: 1px solid var(--line); border-radius: 14px; overflow: hidden;
+    margin: 28px 0; box-shadow: var(--shadow-sm);
   }
+  .fact { background: var(--surface); padding: 16px 18px; }
+  .fact .k { font-family: 'IBM Plex Mono', monospace; font-size: 10.5px; letter-spacing: 0.07em; text-transform: uppercase; color: var(--ink-faint); margin-bottom: 5px; }
+  .fact .v { font-size: 14.5px; font-weight: 600; color: var(--ink); }
 
-  .orb-zone { position: relative; width: 140px; height: 140px; display: flex; align-items: center; justify-content: center; }
-  .orb-ring {
-    position: absolute; inset: 0; border-radius: 50%; border: 2px solid var(--accent-soft);
-    transition: all 0.4s ease;
-  }
+  .why { font-size: 14.5px; color: var(--ink-soft); background: var(--surface-sunken); border: 1px solid var(--line);
+    border-radius: 12px; padding: 16px 18px; margin-bottom: 32px; }
+  .why b { color: var(--ink); }
+
+  .grid { display: grid; grid-template-columns: 1.05fr 0.95fr; gap: 22px; align-items: start; }
+  @media (max-width: 720px) { .grid { grid-template-columns: 1fr; } }
+
+  .panel { background: var(--surface); border: 1px solid var(--line); border-radius: 16px; padding: 24px; box-shadow: var(--shadow-sm); }
+  .panel h2 { font-size: 15px; font-weight: 700; margin-bottom: 14px; }
+
+  .services { display: flex; flex-wrap: wrap; gap: 8px; }
+  .pill { font-size: 12.5px; font-weight: 500; color: var(--ink-soft); background: var(--surface-sunken);
+    border: 1px solid var(--line); border-radius: 999px; padding: 6px 12px; }
+
+  .widget-panel { display: flex; flex-direction: column; align-items: center; gap: 18px; text-align: center;
+    box-shadow: var(--shadow-lg); }
+  .widget-panel h2 { width: 100%; text-align: left; }
+
+  .orb-zone { position: relative; width: 132px; height: 132px; display: flex; align-items: center; justify-content: center; }
+  .orb-ring { position: absolute; inset: 0; border-radius: 50%; border: 2px solid var(--accent-soft); transition: all 0.4s ease; }
   .orb-ring.pulse { animation: pulse 1.6s ease-out infinite; }
-  @keyframes pulse {
-    0% { transform: scale(0.85); opacity: 0.9; }
-    100% { transform: scale(1.35); opacity: 0; }
-  }
+  @keyframes pulse { 0% { transform: scale(0.85); opacity: 0.9; } 100% { transform: scale(1.35); opacity: 0; } }
   @media (prefers-reduced-motion: reduce) { .orb-ring.pulse { animation: none; } }
 
   button.talk {
-    width: 108px; height: 108px; border-radius: 50%; border: none; cursor: pointer;
-    background: var(--accent); color: var(--paper-raised); font-size: 15px; font-weight: 600;
+    width: 100px; height: 100px; border-radius: 50%; border: none; cursor: pointer;
+    background: var(--accent); color: #fff; font-size: 14px; font-weight: 600;
     font-family: 'IBM Plex Sans', sans-serif; display: flex; flex-direction: column;
-    align-items: center; justify-content: center; gap: 6px; box-shadow: var(--shadow);
+    align-items: center; justify-content: center; gap: 5px; box-shadow: var(--shadow-sm);
     transition: transform 0.15s ease, background 0.2s ease;
   }
   button.talk:hover { transform: scale(1.04); }
   button.talk:active { transform: scale(0.97); }
-  button.talk:focus-visible { outline: 3px solid var(--accent-ink); outline-offset: 3px; }
+  button.talk:focus-visible { outline: 3px solid var(--accent-strong); outline-offset: 3px; }
   button.talk.live { background: var(--live); }
   button.talk:disabled { opacity: 0.5; cursor: not-allowed; }
   button.talk:disabled:hover { transform: none; }
-  button.talk svg { width: 28px; height: 28px; }
+  button.talk svg { width: 26px; height: 26px; }
 
-  .status { font-family: 'IBM Plex Mono', monospace; font-size: 12.5px; color: var(--ink-soft); text-align: center; min-height: 16px; }
+  .status { font-family: 'IBM Plex Mono', monospace; font-size: 12px; color: var(--ink-soft); min-height: 16px; }
   .status.live-status { color: var(--live); }
 
   .controls { display: flex; gap: 10px; }
-  .ctrl-btn {
-    font-family: 'IBM Plex Sans', sans-serif; font-size: 13px; font-weight: 500; padding: 8px 16px;
-    border-radius: 20px; border: 1px solid var(--line-strong); background: var(--paper-raised);
-    color: var(--ink); cursor: pointer; transition: background 0.15s ease;
-  }
+  .ctrl-btn { font-family: 'IBM Plex Sans', sans-serif; font-size: 12.5px; font-weight: 500; padding: 7px 14px;
+    border-radius: 20px; border: 1px solid var(--line-strong); background: var(--surface); color: var(--ink);
+    cursor: pointer; transition: background 0.15s ease; }
   .ctrl-btn:hover { background: var(--accent-soft); }
   .ctrl-btn[hidden] { display: none; }
 
-  .transcript {
-    width: 100%; max-height: 220px; overflow-y: auto; display: flex; flex-direction: column; gap: 8px;
-    padding: 4px 2px;
-  }
+  .transcript { width: 100%; max-height: 200px; overflow-y: auto; display: flex; flex-direction: column; gap: 8px;
+    padding: 4px 2px; text-align: left; }
   .transcript:empty { display: none; }
   .line { font-size: 13.5px; line-height: 1.4; }
   .line b { font-family: 'IBM Plex Mono', monospace; font-size: 10.5px; text-transform: uppercase;
-    letter-spacing: 0.05em; color: var(--accent-ink); display: block; margin-bottom: 1px; }
+    letter-spacing: 0.05em; color: var(--accent-strong); display: block; margin-bottom: 1px; }
   .line.user b { color: var(--ink-soft); }
 
-  .foot { text-align: center; margin-top: 24px; font-size: 12.5px; color: var(--ink-soft); }
-  .foot b { color: var(--ink); }
-
-
-  @media (max-width: 420px) { .card { padding: 26px 18px; } }
+  .foot { text-align: center; margin-top: 32px; font-size: 12.5px; color: var(--ink-faint); }
+  .foot b { color: var(--ink-soft); }
 </style>
 
-<div class="wrap">
-  <div class="eyebrow"><span class="dot"></span>DÉMO DÉCROCHE IA</div>
-  <h1>Léa, pour L'Artisan Serrurier</h1>
-  <p class="dek">Un assistant vocal IA configuré avec vos horaires, vos services et votre zone d'intervention. Cliquez pour lui parler directement, ici, dans le navigateur — aucun numéro à composer.</p>
-
-  <div class="card">
-    <div class="orb-zone">
-      <div class="orb-ring" id="ring1"></div>
-      <div class="orb-ring" id="ring2"></div>
-      <button class="talk" id="talkBtn" aria-label="Parler à Léa">
-        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M12 1a3 3 0 0 0-3 3v8a3 3 0 0 0 6 0V4a3 3 0 0 0-3-3z"/><path d="M19 10v2a7 7 0 0 1-14 0v-2"/><line x1="12" y1="19" x2="12" y2="23"/></svg>
-        <span id="btnLabel">Parler à Léa</span>
-      </button>
-    </div>
-    <div class="status" id="statusText">Prête à démarrer</div>
-    <div class="controls">
-      <button class="ctrl-btn" id="muteBtn" hidden>Couper le micro</button>
-      <button class="ctrl-btn" id="endBtn" hidden>Terminer l'appel</button>
-    </div>
-    <div class="transcript" id="transcript"></div>
+<div class="shell">
+  <div class="topbar">
+    <div class="brand"><span class="dot"></span>Décroche IA</div>
+    <div class="note">Démo — non connectée à votre ligne réelle</div>
   </div>
 
-  <p class="foot">Démo créée par <b>Décroche IA</b> pour L'Artisan Serrurier — non connectée à votre ligne réelle. Aucune action n'est facturée ni enregistrée dans un vrai agenda.</p>
+  <div class="hero">
+    <div class="eyebrow"><span>●</span>Démo personnalisée</div>
+    <h1>L'Artisan Serrurier</h1>
+    <p class="dek">Serrurerie d'urgence, intervention en 30 minutes en moyenne. Un assistant vocal IA configuré avec vos tarifs et votre zone d'intervention — parlez-lui directement, ici, dans le navigateur.</p>
+  </div>
+
+  <div class="facts">
+    <div class="fact"><div class="k">Zone d'intervention</div><div class="v">Paris + 77 · 78 · 91 · 92 · 93 · 94 · 95</div></div>
+    <div class="fact"><div class="k">Horaires</div><div class="v">24h/24, 7j/7</div></div>
+    <div class="fact"><div class="k">Intervention moyenne</div><div class="v">30 minutes</div></div>
+  </div>
+
+  <p class="why"><b>Pourquoi cette démo :</b> sur la serrurerie, un appel manqué est presque toujours un client qui raccroche et appelle le concurrent suivant — surtout à 23h un dimanche.</p>
+
+  <div class="grid">
+    <div class="panel">
+      <h2>Ce que Léa sait déjà sur L'Artisan Serrurier</h2>
+      <div class="services">
+        <span class="pill">Ouverture de porte</span>
+        <span class="pill">Changement de serrure / cylindre</span>
+        <span class="pill">Renforcement / blindage de porte</span>
+        <span class="pill">Coffres-forts</span>
+        <span class="pill">Domotique</span>
+        <span class="pill">Volets roulants</span>
+      </div>
+    </div>
+
+    <div class="panel widget-panel">
+      <h2>Testez-la maintenant</h2>
+      <div class="orb-zone">
+        <div class="orb-ring" id="ring1"></div>
+        <div class="orb-ring" id="ring2"></div>
+        <button class="talk" id="talkBtn" aria-label="Parler à Léa">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M12 1a3 3 0 0 0-3 3v8a3 3 0 0 0 6 0V4a3 3 0 0 0-3-3z"/><path d="M19 10v2a7 7 0 0 1-14 0v-2"/><line x1="12" y1="19" x2="12" y2="23"/></svg>
+          <span id="btnLabel">Parler à Léa</span>
+        </button>
+      </div>
+      <div class="status" id="statusText">Prête à démarrer</div>
+      <div class="controls">
+        <button class="ctrl-btn" id="muteBtn" hidden>Couper le micro</button>
+        <button class="ctrl-btn" id="endBtn" hidden>Terminer l'appel</button>
+      </div>
+      <div class="transcript" id="transcript"></div>
+    </div>
+  </div>
+
+  <p class="foot">Démo créée par <b>Décroche IA</b> pour L'Artisan Serrurier — aucune action n'est facturée ni enregistrée dans un vrai agenda. Cliquez, parlez, raccrochez : c'est tout.</p>
 </div>
 
 <script>

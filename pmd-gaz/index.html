@@ -1,195 +1,122 @@
 <meta name="robots" content="noindex, nofollow">
-<title>Léa pour PMD-GAZ</title>
+<title>PMD-GAZ</title>
 <style>
-  @import url('https://fonts.googleapis.com/css2?family=Archivo:wght@600;700;800&family=IBM+Plex+Sans:ital,wght@0,400;0,500;0,600;1,400&family=IBM+Plex+Mono:wght@400;500;600&display=swap');
-
   :root {
-    --bg: #F1F4F5;
-    --surface: #FFFFFF;
-    --surface-sunken: #F7F8F9;
-    --ink: #10151B;
-    --ink-soft: #576273;
-    --ink-faint: #8A94A3;
-    --line: #E1E6EA;
-    --line-strong: #CBD3DA;
-    --accent: #0C7C74;
-    --accent-strong: #075C56;
-    --accent-soft: #E1F2EF;
-    --live: #C6402F;
-    --live-soft: #FBE9E6;
-    --shadow-sm: 0 1px 2px rgba(16,21,27,0.05);
-    --shadow-lg: 0 1px 2px rgba(16,21,27,0.05), 0 16px 40px rgba(16,21,27,0.09);
+    --bg: #ffffff;
+    --surface: #F5F5F7;
+    --ink: #1D1D1F;
+    --ink-soft: #6E6E73;
+    --accent: #1D6FB8;
+    --live: #FF3B30;
+    --shadow: 0 10px 30px rgba(0,0,0,0.10);
   }
   @media (prefers-color-scheme: dark) {
     :root:not([data-theme="light"]) {
-      --bg: #0E1216; --surface: #171C22; --surface-sunken: #12161B; --ink: #ECEEF0; --ink-soft: #9BA5B2; --ink-faint: #6C7684;
-      --line: #262D35; --line-strong: #333B44; --accent: #34C3B8; --accent-strong: #8FE9E0; --accent-soft: #15302D;
-      --live: #FF7A68; --live-soft: #2E1815;
-      --shadow-sm: 0 1px 2px rgba(0,0,0,0.3); --shadow-lg: 0 1px 2px rgba(0,0,0,0.3), 0 20px 48px rgba(0,0,0,0.45);
+      --bg: #000000; --surface: #1D1D1F; --ink: #F5F5F7; --ink-soft: #A1A1A6;
+      --accent: #5CA8EF; --live: #FF453A; --shadow: 0 10px 30px rgba(0,0,0,0.45);
     }
   }
   :root[data-theme="dark"] {
-    --bg: #0E1216; --surface: #171C22; --surface-sunken: #12161B; --ink: #ECEEF0; --ink-soft: #9BA5B2; --ink-faint: #6C7684;
-    --line: #262D35; --line-strong: #333B44; --accent: #34C3B8; --accent-strong: #8FE9E0; --accent-soft: #15302D;
-    --live: #FF7A68; --live-soft: #2E1815;
-    --shadow-sm: 0 1px 2px rgba(0,0,0,0.3); --shadow-lg: 0 1px 2px rgba(0,0,0,0.3), 0 20px 48px rgba(0,0,0,0.45);
+    --bg: #000000; --surface: #1D1D1F; --ink: #F5F5F7; --ink-soft: #A1A1A6;
+    --accent: #5CA8EF; --live: #FF453A; --shadow: 0 10px 30px rgba(0,0,0,0.45);
   }
 
-  * { box-sizing: border-box; }
+  * { box-sizing: border-box; -webkit-font-smoothing: antialiased; }
+  html { background: var(--bg); }
   body {
-    background: var(--bg); color: var(--ink);
-    font-family: 'IBM Plex Sans', system-ui, sans-serif;
-    margin: 0; line-height: 1.55;
+    background: var(--bg); color: var(--ink); margin: 0;
+    font-family: -apple-system, BlinkMacSystemFont, "SF Pro Text", "Helvetica Neue", Arial, sans-serif;
+    line-height: 1.47059; -webkit-text-size-adjust: 100%;
   }
-  h1, h2, h3 { font-family: 'Archivo', system-ui, sans-serif; text-wrap: balance; letter-spacing: -0.01em; margin: 0; }
-  a { color: var(--accent-strong); }
 
-  .shell { max-width: 920px; margin: 0 auto; padding: 28px 20px 56px; }
+  .wrap { max-width: 560px; margin: 0 auto; padding: 15vh 24px 64px; text-align: center; }
+  @media (max-width: 480px) { .wrap { padding-top: 12vh; } }
 
-  .topbar {
-    display: flex; align-items: center; justify-content: space-between; gap: 12px;
-    padding-bottom: 22px; margin-bottom: 8px; border-bottom: 1px solid var(--line);
-    font-family: 'IBM Plex Mono', monospace; font-size: 11.5px; letter-spacing: 0.05em; color: var(--ink-faint);
+  .label { font-size: 15px; font-weight: 590; color: var(--accent); margin-bottom: 14px; }
+
+  h1 {
+    font-size: clamp(32px, 5.6vw, 48px); font-weight: 600; letter-spacing: -0.022em;
+    line-height: 1.07; margin: 0 0 16px; text-wrap: balance;
   }
-  .brand { display: flex; align-items: center; gap: 7px; color: var(--ink-soft); font-weight: 500; text-transform: uppercase; }
-  .brand .dot { width: 6px; height: 6px; border-radius: 50%; background: var(--accent); box-shadow: 0 0 0 3px var(--accent-soft); }
-  .topbar .note { text-align: right; max-width: 40%; }
 
-  .hero { padding: 40px 0 30px; text-align: center; }
-  .eyebrow {
-    font-family: 'IBM Plex Mono', monospace; font-size: 12px; letter-spacing: 0.09em;
-    text-transform: uppercase; color: var(--accent-strong); margin-bottom: 12px;
-    display: inline-flex; align-items: center; gap: 8px; background: var(--accent-soft);
-    padding: 5px 12px 5px 10px; border-radius: 999px;
+  .sub {
+    font-size: 19px; font-weight: 400; color: var(--ink-soft); line-height: 1.5;
+    max-width: 38ch; margin: 0 auto 56px;
   }
-  .hero h1 { font-size: clamp(28px, 4vw, 38px); font-weight: 800; margin-bottom: 10px; }
-  .hero .dek { color: var(--ink-soft); font-size: 15.5px; max-width: 54ch; margin: 0 auto; }
 
-  .facts {
-    display: grid; grid-template-columns: repeat(auto-fit, minmax(190px, 1fr)); gap: 1px;
-    background: var(--line); border: 1px solid var(--line); border-radius: 14px; overflow: hidden;
-    margin: 28px 0; box-shadow: var(--shadow-sm);
+  .stage { position: relative; width: 152px; height: 152px; margin: 0 auto 22px; display: flex; align-items: center; justify-content: center; }
+  .orb-ring {
+    position: absolute; inset: -16px; border-radius: 50%; pointer-events: none;
+    background: radial-gradient(circle, var(--accent) 0%, transparent 68%);
+    opacity: 0; filter: blur(3px); transition: opacity 0.5s ease;
   }
-  .fact { background: var(--surface); padding: 16px 18px; }
-  .fact .k { font-family: 'IBM Plex Mono', monospace; font-size: 10.5px; letter-spacing: 0.07em; text-transform: uppercase; color: var(--ink-faint); margin-bottom: 5px; }
-  .fact .v { font-size: 14.5px; font-weight: 600; color: var(--ink); }
-
-  .why { font-size: 14.5px; color: var(--ink-soft); background: var(--surface-sunken); border: 1px solid var(--line);
-    border-radius: 12px; padding: 16px 18px; margin-bottom: 32px; }
-  .why b { color: var(--ink); }
-
-  .grid { display: grid; grid-template-columns: 1.05fr 0.95fr; gap: 22px; align-items: start; }
-  @media (max-width: 720px) { .grid { grid-template-columns: 1fr; } }
-
-  .panel { background: var(--surface); border: 1px solid var(--line); border-radius: 16px; padding: 24px; box-shadow: var(--shadow-sm); }
-  .panel h2 { font-size: 15px; font-weight: 700; margin-bottom: 14px; }
-
-  .services { display: flex; flex-wrap: wrap; gap: 8px; }
-  .pill { font-size: 12.5px; font-weight: 500; color: var(--ink-soft); background: var(--surface-sunken);
-    border: 1px solid var(--line); border-radius: 999px; padding: 6px 12px; }
-
-  .widget-panel { display: flex; flex-direction: column; align-items: center; gap: 18px; text-align: center;
-    box-shadow: var(--shadow-lg); }
-  .widget-panel h2 { width: 100%; text-align: left; }
-
-  .orb-zone { position: relative; width: 132px; height: 132px; display: flex; align-items: center; justify-content: center; }
-  .orb-ring { position: absolute; inset: 0; border-radius: 50%; border: 2px solid var(--accent-soft); transition: all 0.4s ease; pointer-events: none; }
-  .orb-ring.pulse { animation: pulse 1.6s ease-out infinite; }
-  @keyframes pulse { 0% { transform: scale(0.85); opacity: 0.9; } 100% { transform: scale(1.35); opacity: 0; } }
-  @media (prefers-reduced-motion: reduce) { .orb-ring.pulse { animation: none; } }
+  .orb-ring.pulse { animation: breathe 2.4s ease-in-out infinite; }
+  @keyframes breathe {
+    0%, 100% { transform: scale(0.92); opacity: 0.22; }
+    50% { transform: scale(1.18); opacity: 0.42; }
+  }
+  @media (prefers-reduced-motion: reduce) { .orb-ring.pulse { animation: none; opacity: 0.3; } }
 
   button.talk {
-    width: 100px; height: 100px; border-radius: 50%; border: none; cursor: pointer;
-    background: var(--accent); color: #fff; font-size: 14px; font-weight: 600;
-    font-family: 'IBM Plex Sans', sans-serif; display: flex; flex-direction: column;
-    align-items: center; justify-content: center; gap: 5px; box-shadow: var(--shadow-sm);
-    transition: transform 0.15s ease, background 0.2s ease;
+    position: relative; width: 120px; height: 120px; border-radius: 50%; border: none; cursor: pointer;
+    background: var(--accent); color: #fff; font-size: 14px; font-weight: 590;
+    font-family: inherit; display: flex; flex-direction: column;
+    align-items: center; justify-content: center; gap: 6px; box-shadow: var(--shadow);
+    transition: transform 0.2s cubic-bezier(.2,.8,.2,1), background 0.2s ease;
   }
-  button.talk:hover { transform: scale(1.04); }
+  button.talk:hover { transform: scale(1.035); }
   button.talk:active { transform: scale(0.97); }
-  button.talk:focus-visible { outline: 3px solid var(--accent-strong); outline-offset: 3px; }
+  button.talk:focus-visible { outline: 2px solid var(--accent); outline-offset: 4px; }
   button.talk.live { background: var(--live); }
-  button.talk:disabled { opacity: 0.5; cursor: not-allowed; }
+  button.talk:disabled { opacity: 0.35; cursor: not-allowed; }
   button.talk:disabled:hover { transform: none; }
   button.talk svg { width: 26px; height: 26px; }
 
-  .status { font-family: 'IBM Plex Mono', monospace; font-size: 12px; color: var(--ink-soft); min-height: 16px; }
+  .status { font-size: 14px; color: var(--ink-soft); min-height: 18px; margin-bottom: 18px; }
   .status.live-status { color: var(--live); }
 
-  .controls { display: flex; gap: 10px; }
-  .ctrl-btn { font-family: 'IBM Plex Sans', sans-serif; font-size: 12.5px; font-weight: 500; padding: 7px 14px;
-    border-radius: 20px; border: 1px solid var(--line-strong); background: var(--surface); color: var(--ink);
-    cursor: pointer; transition: background 0.15s ease; }
-  .ctrl-btn:hover { background: var(--accent-soft); }
+  .controls { display: flex; gap: 10px; justify-content: center; margin-bottom: 8px; }
+  .ctrl-btn {
+    font-family: inherit; font-size: 14px; font-weight: 500; padding: 9px 18px;
+    border-radius: 980px; border: none; background: var(--surface); color: var(--ink);
+    cursor: pointer; transition: opacity 0.15s ease;
+  }
+  .ctrl-btn:hover { opacity: 0.7; }
   .ctrl-btn[hidden] { display: none; }
 
-  .transcript { width: 100%; max-height: 200px; overflow-y: auto; display: flex; flex-direction: column; gap: 8px;
-    padding: 4px 2px; text-align: left; }
+  .transcript {
+    width: 100%; max-height: 220px; overflow-y: auto; display: flex; flex-direction: column; gap: 10px;
+    padding: 20px 4px 0; text-align: left;
+  }
   .transcript:empty { display: none; }
-  .line { font-size: 13.5px; line-height: 1.4; }
-  .line b { font-family: 'IBM Plex Mono', monospace; font-size: 10.5px; text-transform: uppercase;
-    letter-spacing: 0.05em; color: var(--accent-strong); display: block; margin-bottom: 1px; }
+  .line { font-size: 15px; line-height: 1.5; }
+  .line b { font-weight: 590; color: var(--accent); margin-right: 6px; }
   .line.user b { color: var(--ink-soft); }
 
-  .foot { text-align: center; margin-top: 32px; font-size: 12.5px; color: var(--ink-faint); }
-  .foot b { color: var(--ink-soft); }
+  .foot { margin-top: 64px; font-size: 12.5px; color: var(--ink-soft); line-height: 1.5; }
 </style>
 
-<div class="shell">
-  <div class="topbar">
-    <div class="brand"><span class="dot"></span>Assistant vocal IA</div>
-    <div class="note">Démo — non connectée à votre ligne réelle</div>
+<div class="wrap">
+  <div class="label">PMD-GAZ</div>
+  <h1>Un appel qui ne reste jamais sans réponse.</h1>
+  <p class="sub">7j/7, de 7h à 21h, sur Paris et toute l'Île-de-France. Écoutez comment se passerait votre prochain appel.</p>
+
+  <div class="stage">
+    <div class="orb-ring" id="ring1"></div>
+    <div class="orb-ring" id="ring2"></div>
+    <button class="talk" id="talkBtn" aria-label="Parler à Léa">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M12 1a3 3 0 0 0-3 3v8a3 3 0 0 0 6 0V4a3 3 0 0 0-3-3z"/><path d="M19 10v2a7 7 0 0 1-14 0v-2"/><line x1="12" y1="19" x2="12" y2="23"/></svg>
+      <span id="btnLabel">Parler à Léa</span>
+    </button>
   </div>
-
-  <div class="hero">
-    <div class="eyebrow"><span>●</span>Démo personnalisée</div>
-    <h1>PMD-GAZ</h1>
-    <p class="dek">Plombier-chauffagiste indépendant à Paris. Un assistant vocal IA configuré avec vos horaires, votre zone d'intervention et vos services — parlez-lui directement, ici, dans le navigateur.</p>
+  <div class="status" id="statusText">Prête à démarrer</div>
+  <div class="controls">
+    <button class="ctrl-btn" id="muteBtn" hidden>Couper le micro</button>
+    <button class="ctrl-btn" id="endBtn" hidden>Terminer l'appel</button>
   </div>
+  <div class="transcript" id="transcript"></div>
 
-  <div class="facts">
-    <div class="fact"><div class="k">Zone d'intervention</div><div class="v">Paris + 77 · 78 · 91 · 92 · 93 · 94 · 95</div></div>
-    <div class="fact"><div class="k">Horaires</div><div class="v">7j/7, 7h–21h</div></div>
-    <div class="fact"><div class="k">Depuis 2018</div><div class="v">RGE Qualigaz</div></div>
-  </div>
-
-  <p class="why"><b>Pourquoi cette démo :</b> avec une équipe qui monte jusqu'à 9 techniciens selon la saison, tous sur le terrain, chaque appel manqué pendant une intervention est un rendez-vous potentiellement perdu.</p>
-
-  <div class="grid">
-    <div class="panel">
-      <h2>Ce que Léa sait déjà sur PMD-GAZ</h2>
-      <div class="services">
-        <span class="pill">Entretien & dépannage chaudière</span>
-        <span class="pill">Remplacement chaudière</span>
-        <span class="pill">Contrat d'entretien annuel</span>
-        <span class="pill">Ramonage</span>
-        <span class="pill">Plomberie générale</span>
-        <span class="pill">Débouchage canalisations</span>
-        <span class="pill">Inspection caméra</span>
-        <span class="pill">Réparation sanitaires</span>
-      </div>
-    </div>
-
-    <div class="panel widget-panel">
-      <h2>Testez-la maintenant</h2>
-      <div class="orb-zone">
-        <div class="orb-ring" id="ring1"></div>
-        <div class="orb-ring" id="ring2"></div>
-        <button class="talk" id="talkBtn" aria-label="Parler à Léa">
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M12 1a3 3 0 0 0-3 3v8a3 3 0 0 0 6 0V4a3 3 0 0 0-3-3z"/><path d="M19 10v2a7 7 0 0 1-14 0v-2"/><line x1="12" y1="19" x2="12" y2="23"/></svg>
-          <span id="btnLabel">Parler à Léa</span>
-        </button>
-      </div>
-      <div class="status" id="statusText">Prête à démarrer</div>
-      <div class="controls">
-        <button class="ctrl-btn" id="muteBtn" hidden>Couper le micro</button>
-        <button class="ctrl-btn" id="endBtn" hidden>Terminer l'appel</button>
-      </div>
-      <div class="transcript" id="transcript"></div>
-    </div>
-  </div>
-
-  <p class="foot">Démo réalisée pour PMD-GAZ — aucune action n'est facturée ni enregistrée dans un vrai agenda. Cliquez, parlez, raccrochez : c'est tout.</p>
+  <p class="foot">Démo interactive, non connectée à votre ligne réelle.<br>Aucun appel n'est facturé ni enregistré dans un agenda.</p>
 </div>
 
 <script>

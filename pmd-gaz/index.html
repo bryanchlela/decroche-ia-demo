@@ -108,13 +108,6 @@
   .foot { text-align: center; margin-top: 24px; font-size: 12.5px; color: var(--ink-soft); }
   .foot b { color: var(--ink); }
 
-  .debuglog {
-    width: 100%; font-family: 'IBM Plex Mono', monospace; font-size: 11px; color: var(--ink-soft);
-    background: var(--paper); border: 1px dashed var(--line-strong); border-radius: 8px;
-    padding: 8px 10px; margin-top: 4px; max-height: 140px; overflow-y: auto; text-align: left;
-  }
-  .debuglog:empty { display: none; }
-  .debuglog div { margin-bottom: 2px; white-space: pre-wrap; word-break: break-word; }
 
   @media (max-width: 420px) { .card { padding: 26px 18px; } }
 </style>
@@ -139,7 +132,6 @@
       <button class="ctrl-btn" id="endBtn" hidden>Terminer l'appel</button>
     </div>
     <div class="transcript" id="transcript"></div>
-    <div class="debuglog" id="debugLog"></div>
   </div>
 
   <p class="foot">Démo créée par <b>Décroche IA</b> pour PMD-GAZ — non connectée à votre ligne réelle. Aucune action n'est facturée ni enregistrée dans un vrai agenda.</p>
@@ -163,13 +155,10 @@
   let muted = false;
   let vapi = null;
 
-  const debugLog = document.getElementById("debugLog");
   function log(msg) {
-    const line = document.createElement("div");
-    const t = new Date().toLocaleTimeString();
-    line.textContent = "[" + t + "] " + msg;
-    debugLog.appendChild(line);
-    debugLog.scrollTop = debugLog.scrollHeight;
+    // Diagnostic trace for developers only (browser console) — kept out of
+    // the visible page so clients see a clean, non-technical demo.
+    console.log("[Décroche IA démo] " + msg);
   }
 
   function showError(msg) {

@@ -1,0 +1,318 @@
+<title>Léa pour PMD-GAZ</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Archivo:wght@600;700;800&family=IBM+Plex+Sans:ital,wght@0,400;0,500;0,600;1,400&family=IBM+Plex+Mono:wght@400;500;600&display=swap');
+
+  :root {
+    --paper: #F6F4EF;
+    --paper-raised: #FFFFFF;
+    --ink: #1C2430;
+    --ink-soft: #4B5563;
+    --line: #DEDACE;
+    --line-strong: #C9C3B3;
+    --accent: #0E7C7E;
+    --accent-ink: #075052;
+    --accent-soft: #E1F0EE;
+    --live: #C0392B;
+    --live-soft: #FBE7E4;
+    --shadow: 0 1px 2px rgba(28,36,48,0.06), 0 8px 24px rgba(28,36,48,0.06);
+  }
+  @media (prefers-color-scheme: dark) {
+    :root:not([data-theme="light"]) {
+      --paper: #14181D; --paper-raised: #1B2129; --ink: #EDEAE3; --ink-soft: #A9AFB9;
+      --line: #2C333C; --line-strong: #3A424D; --accent: #35C2BE; --accent-ink: #8FE9E4;
+      --accent-soft: #17302E; --live: #FF6B5C; --live-soft: #2E1815;
+      --shadow: 0 1px 2px rgba(0,0,0,0.3), 0 12px 32px rgba(0,0,0,0.35);
+    }
+  }
+  :root[data-theme="dark"] {
+    --paper: #14181D; --paper-raised: #1B2129; --ink: #EDEAE3; --ink-soft: #A9AFB9;
+    --line: #2C333C; --line-strong: #3A424D; --accent: #35C2BE; --accent-ink: #8FE9E4;
+    --accent-soft: #17302E; --live: #FF6B5C; --live-soft: #2E1815;
+    --shadow: 0 1px 2px rgba(0,0,0,0.3), 0 12px 32px rgba(0,0,0,0.35);
+  }
+
+  * { box-sizing: border-box; }
+  body {
+    background: var(--paper); color: var(--ink);
+    font-family: 'IBM Plex Sans', system-ui, sans-serif;
+    padding: 0 20px; line-height: 1.55;
+    min-height: 100vh; display: flex; align-items: center; justify-content: center;
+  }
+  .wrap { max-width: 480px; width: 100%; padding-block: 48px; margin: 0 auto; }
+  h1, h2 { font-family: 'Archivo', system-ui, sans-serif; text-wrap: balance; letter-spacing: -0.01em; }
+
+  .eyebrow {
+    font-family: 'IBM Plex Mono', monospace; font-size: 12px; letter-spacing: 0.09em;
+    text-transform: uppercase; color: var(--accent-ink); text-align: center;
+    display: flex; align-items: center; justify-content: center; gap: 8px; margin-bottom: 10px;
+  }
+  .eyebrow .dot { width: 6px; height: 6px; border-radius: 50%; background: var(--accent); box-shadow: 0 0 0 3px var(--accent-soft); }
+
+  h1 { font-size: 26px; font-weight: 800; text-align: center; margin: 0 0 6px; }
+  .dek { color: var(--ink-soft); font-size: 14.5px; text-align: center; max-width: 40ch; margin: 0 auto 32px; }
+
+  .card {
+    background: var(--paper-raised); border: 1px solid var(--line); border-radius: 16px;
+    box-shadow: var(--shadow); padding: 32px 24px; display: flex; flex-direction: column;
+    align-items: center; gap: 20px;
+  }
+
+  .orb-zone { position: relative; width: 140px; height: 140px; display: flex; align-items: center; justify-content: center; }
+  .orb-ring {
+    position: absolute; inset: 0; border-radius: 50%; border: 2px solid var(--accent-soft);
+    transition: all 0.4s ease;
+  }
+  .orb-ring.pulse { animation: pulse 1.6s ease-out infinite; }
+  @keyframes pulse {
+    0% { transform: scale(0.85); opacity: 0.9; }
+    100% { transform: scale(1.35); opacity: 0; }
+  }
+  @media (prefers-reduced-motion: reduce) { .orb-ring.pulse { animation: none; } }
+
+  button.talk {
+    width: 108px; height: 108px; border-radius: 50%; border: none; cursor: pointer;
+    background: var(--accent); color: var(--paper-raised); font-size: 15px; font-weight: 600;
+    font-family: 'IBM Plex Sans', sans-serif; display: flex; flex-direction: column;
+    align-items: center; justify-content: center; gap: 6px; box-shadow: var(--shadow);
+    transition: transform 0.15s ease, background 0.2s ease;
+  }
+  button.talk:hover { transform: scale(1.04); }
+  button.talk:active { transform: scale(0.97); }
+  button.talk:focus-visible { outline: 3px solid var(--accent-ink); outline-offset: 3px; }
+  button.talk.live { background: var(--live); }
+  button.talk svg { width: 28px; height: 28px; }
+
+  .status { font-family: 'IBM Plex Mono', monospace; font-size: 12.5px; color: var(--ink-soft); text-align: center; min-height: 16px; }
+  .status.live-status { color: var(--live); }
+
+  .controls { display: flex; gap: 10px; }
+  .ctrl-btn {
+    font-family: 'IBM Plex Sans', sans-serif; font-size: 13px; font-weight: 500; padding: 8px 16px;
+    border-radius: 20px; border: 1px solid var(--line-strong); background: var(--paper-raised);
+    color: var(--ink); cursor: pointer; transition: background 0.15s ease;
+  }
+  .ctrl-btn:hover { background: var(--accent-soft); }
+  .ctrl-btn[hidden] { display: none; }
+
+  .transcript {
+    width: 100%; max-height: 220px; overflow-y: auto; display: flex; flex-direction: column; gap: 8px;
+    padding: 4px 2px;
+  }
+  .transcript:empty { display: none; }
+  .line { font-size: 13.5px; line-height: 1.4; }
+  .line b { font-family: 'IBM Plex Mono', monospace; font-size: 10.5px; text-transform: uppercase;
+    letter-spacing: 0.05em; color: var(--accent-ink); display: block; margin-bottom: 1px; }
+  .line.user b { color: var(--ink-soft); }
+
+  .foot { text-align: center; margin-top: 24px; font-size: 12.5px; color: var(--ink-soft); }
+  .foot b { color: var(--ink); }
+
+  .debuglog {
+    width: 100%; font-family: 'IBM Plex Mono', monospace; font-size: 11px; color: var(--ink-soft);
+    background: var(--paper); border: 1px dashed var(--line-strong); border-radius: 8px;
+    padding: 8px 10px; margin-top: 4px; max-height: 140px; overflow-y: auto; text-align: left;
+  }
+  .debuglog:empty { display: none; }
+  .debuglog div { margin-bottom: 2px; white-space: pre-wrap; word-break: break-word; }
+
+  @media (max-width: 420px) { .card { padding: 26px 18px; } }
+</style>
+
+<div class="wrap">
+  <div class="eyebrow"><span class="dot"></span>DÉMO DÉCROCHE IA</div>
+  <h1>Léa, pour PMD-GAZ</h1>
+  <p class="dek">Un assistant vocal IA configuré avec vos horaires, vos services et votre zone d'intervention. Cliquez pour lui parler directement, ici, dans le navigateur — aucun numéro à composer.</p>
+
+  <div class="card">
+    <div class="orb-zone">
+      <div class="orb-ring" id="ring1"></div>
+      <div class="orb-ring" id="ring2"></div>
+      <button class="talk" id="talkBtn" aria-label="Parler à Léa">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M12 1a3 3 0 0 0-3 3v8a3 3 0 0 0 6 0V4a3 3 0 0 0-3-3z"/><path d="M19 10v2a7 7 0 0 1-14 0v-2"/><line x1="12" y1="19" x2="12" y2="23"/></svg>
+        <span id="btnLabel">Parler à Léa</span>
+      </button>
+    </div>
+    <div class="status" id="statusText">Prête à démarrer</div>
+    <div class="controls">
+      <button class="ctrl-btn" id="muteBtn" hidden>Couper le micro</button>
+      <button class="ctrl-btn" id="endBtn" hidden>Terminer l'appel</button>
+    </div>
+    <div class="transcript" id="transcript"></div>
+    <div class="debuglog" id="debugLog"></div>
+  </div>
+
+  <p class="foot">Démo créée par <b>Décroche IA</b> pour PMD-GAZ — non connectée à votre ligne réelle. Aucune action n'est facturée ni enregistrée dans un vrai agenda.</p>
+</div>
+
+<script>
+(async () => {
+  const PUBLIC_KEY = "0e0d88eb-935d-4a0f-bf6c-51fbd809600f";
+  const ASSISTANT_ID = "3945bec4-6c48-40d9-a35d-2e99f7133996";
+
+  const talkBtn = document.getElementById("talkBtn");
+  const btnLabel = document.getElementById("btnLabel");
+  const statusText = document.getElementById("statusText");
+  const muteBtn = document.getElementById("muteBtn");
+  const endBtn = document.getElementById("endBtn");
+  const transcript = document.getElementById("transcript");
+  const ring1 = document.getElementById("ring1");
+  const ring2 = document.getElementById("ring2");
+
+  let inCall = false;
+  let muted = false;
+  let vapi = null;
+
+  const debugLog = document.getElementById("debugLog");
+  function log(msg) {
+    const line = document.createElement("div");
+    const t = new Date().toLocaleTimeString();
+    line.textContent = "[" + t + "] " + msg;
+    debugLog.appendChild(line);
+    debugLog.scrollTop = debugLog.scrollHeight;
+  }
+
+  function showError(msg) {
+    statusText.textContent = msg;
+    statusText.classList.add("live-status");
+    talkBtn.disabled = false;
+    log("ERREUR : " + msg);
+  }
+  window.addEventListener("error", (e) => showError("Erreur technique : " + (e.message || "inconnue")));
+  window.addEventListener("unhandledrejection", (e) => showError("Erreur technique : " + (e.reason && e.reason.message ? e.reason.message : String(e.reason))));
+
+  function withTimeout(promise, ms, label) {
+    return Promise.race([
+      promise,
+      new Promise((_, reject) => setTimeout(() => reject(new Error(label + " n'a pas répondu après " + (ms / 1000) + "s (bloqué, probablement une permission refusée silencieusement)")), ms)),
+    ]);
+  }
+
+  function setIdle() {
+    inCall = false;
+    talkBtn.classList.remove("live");
+    btnLabel.textContent = "Parler à Léa";
+    statusText.textContent = "Prête à démarrer";
+    statusText.classList.remove("live-status");
+    muteBtn.hidden = true;
+    endBtn.hidden = true;
+    ring1.classList.remove("pulse");
+    ring2.classList.remove("pulse");
+    talkBtn.disabled = false;
+  }
+
+  function addLine(role, text) {
+    if (!text) return;
+    const div = document.createElement("div");
+    div.className = "line " + (role === "user" ? "user" : "assistant");
+    div.innerHTML = "<b>" + (role === "user" ? "Vous" : "Léa") + "</b>" + text;
+    transcript.appendChild(div);
+    transcript.scrollTop = transcript.scrollHeight;
+  }
+
+  log("Script démarré.");
+  talkBtn.disabled = true;
+  statusText.textContent = "Chargement de l'assistant…";
+
+  log("navigator.mediaDevices disponible : " + (typeof navigator.mediaDevices !== "undefined"));
+
+  let VapiCtor;
+  try {
+    log("Chargement du SDK Vapi…");
+    const mod = await import("https://cdn.jsdelivr.net/npm/@vapi-ai/web/+esm");
+    VapiCtor = mod.default || mod.Vapi || mod;
+    if (typeof VapiCtor !== "function") throw new Error("SDK chargé mais mal formé");
+    log("SDK chargé avec succès.");
+  } catch (e) {
+    showError("Impossible de charger l'assistant (réseau ou bloqueur de script). Rechargez la page.");
+    return;
+  }
+
+  try {
+    vapi = new VapiCtor(PUBLIC_KEY);
+    log("Instance Vapi créée.");
+  } catch (e) {
+    showError("Erreur d'initialisation : " + (e && e.message ? e.message : "clé publique invalide."));
+    return;
+  }
+
+  talkBtn.disabled = false;
+  statusText.textContent = "Prête à démarrer";
+
+  talkBtn.addEventListener("click", async () => {
+    log("Clic reçu sur le bouton.");
+    if (inCall) { log("Déjà en appel — clic ignoré."); return; }
+    talkBtn.disabled = true;
+
+    statusText.textContent = "Autorisation du micro…";
+    log("Demande d'accès au micro (getUserMedia)…");
+    try {
+      if (!navigator.mediaDevices || !navigator.mediaDevices.getUserMedia) {
+        throw new Error("navigator.mediaDevices.getUserMedia est indisponible dans ce cadre (bloqué par la sandbox).");
+      }
+      const stream = await withTimeout(navigator.mediaDevices.getUserMedia({ audio: true }), 8000, "La demande de micro");
+      log("Micro autorisé.");
+      stream.getTracks().forEach((t) => t.stop());
+    } catch (e) {
+      showError("Micro bloqué (" + (e && e.name ? e.name : "erreur") + ") : " + (e && e.message ? e.message : "inconnue") + " — autorisez l'accès au micro pour ce site puis réessayez.");
+      return;
+    }
+
+    statusText.textContent = "Connexion en cours…";
+    log("Appel de vapi.start(" + ASSISTANT_ID + ")…");
+    try {
+      await withTimeout(vapi.start(ASSISTANT_ID), 15000, "vapi.start()");
+      log("vapi.start() a répondu sans erreur.");
+    } catch (e) {
+      showError("Erreur de connexion : " + (e && e.message ? e.message : "réessayez."));
+    }
+  });
+  log("Écouteur de clic attaché au bouton.");
+
+  endBtn.addEventListener("click", () => { log("Clic sur Terminer l'appel."); vapi.stop(); });
+
+  muteBtn.addEventListener("click", () => {
+    muted = !muted;
+    vapi.setMuted(muted);
+    muteBtn.textContent = muted ? "Réactiver le micro" : "Couper le micro";
+    log("Micro " + (muted ? "coupé" : "réactivé") + ".");
+  });
+
+  vapi.on("call-start", () => {
+    log("Événement call-start reçu.");
+    inCall = true;
+    talkBtn.disabled = false;
+    talkBtn.classList.add("live");
+    btnLabel.textContent = "En appel";
+    statusText.textContent = "Léa vous écoute…";
+    statusText.classList.remove("live-status");
+    muteBtn.hidden = false;
+    endBtn.hidden = false;
+    ring1.classList.add("pulse");
+    ring2.classList.add("pulse");
+    transcript.innerHTML = "";
+  });
+
+  vapi.on("speech-start", () => { statusText.textContent = "Léa parle…"; });
+  vapi.on("speech-end", () => { if (inCall) statusText.textContent = "Léa vous écoute…"; });
+
+  vapi.on("message", (msg) => {
+    if (msg.type === "transcript" && msg.transcriptType === "final") {
+      addLine(msg.role, msg.transcript);
+    }
+  });
+
+  vapi.on("call-end", () => { setIdle(); });
+  vapi.on("error", (e) => {
+    console.error(e);
+    showError("Erreur pendant l'appel : " + (e && e.message ? e.message : JSON.stringify(e)));
+    inCall = false;
+    ring1.classList.remove("pulse");
+    ring2.classList.remove("pulse");
+    talkBtn.classList.remove("live");
+    btnLabel.textContent = "Parler à Léa";
+    muteBtn.hidden = true;
+    endBtn.hidden = true;
+    talkBtn.disabled = false;
+  });
+})();
+</script>

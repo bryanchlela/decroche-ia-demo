@@ -81,6 +81,8 @@
   button.talk:active { transform: scale(0.97); }
   button.talk:focus-visible { outline: 3px solid var(--accent-ink); outline-offset: 3px; }
   button.talk.live { background: var(--live); }
+  button.talk:disabled { opacity: 0.5; cursor: not-allowed; }
+  button.talk:disabled:hover { transform: none; }
   button.talk svg { width: 28px; height: 28px; }
 
   .status { font-family: 'IBM Plex Mono', monospace; font-size: 12.5px; color: var(--ink-soft); text-align: center; min-height: 16px; }
@@ -164,7 +166,6 @@
   function showError(msg) {
     statusText.textContent = msg;
     statusText.classList.add("live-status");
-    talkBtn.disabled = false;
     log("ERREUR : " + msg);
   }
   window.addEventListener("error", (e) => showError("Erreur technique : " + (e.message || "inconnue")));
@@ -201,6 +202,7 @@
 
   log("Script démarré.");
   talkBtn.disabled = true;
+  btnLabel.textContent = "Chargement…";
   statusText.textContent = "Chargement de l'assistant…";
 
   log("navigator.mediaDevices disponible : " + (typeof navigator.mediaDevices !== "undefined"));
@@ -208,13 +210,14 @@
   let VapiCtor;
   try {
     log("Chargement du SDK Vapi…");
-    const mod = await import("https://cdn.jsdelivr.net/npm/@vapi-ai/web/+esm");
+    const mod = await withTimeout(import("https://cdn.jsdelivr.net/npm/@vapi-ai/web/+esm"), 12000, "Le chargement de l'assistant");
     VapiCtor = mod.default || mod.Vapi || mod;
     if (typeof VapiCtor !== "function") throw new Error("SDK chargé mais mal formé");
     log("SDK chargé avec succès.");
   } catch (e) {
-    showError("Impossible de charger l'assistant (réseau ou bloqueur de script). Rechargez la page.");
-    return;
+    btnLabel.textContent = "Indisponible";
+    showError("Impossible de charger l'assistant. Si vous utilisez un bloqueur de publicités (AdBlock, uBlock…), désactivez-le pour ce site puis rechargez la page.");
+    return; // talkBtn stays disabled: nothing loaded to retry with until the page reloads
   }
 
   try {
@@ -226,6 +229,7 @@
   }
 
   talkBtn.disabled = false;
+  btnLabel.textContent = "Parler à Léa";
   statusText.textContent = "Prête à démarrer";
 
   talkBtn.addEventListener("click", async () => {
@@ -244,6 +248,8 @@
       stream.getTracks().forEach((t) => t.stop());
     } catch (e) {
       showError("Micro bloqué (" + (e && e.name ? e.name : "erreur") + ") : " + (e && e.message ? e.message : "inconnue") + " — autorisez l'accès au micro pour ce site puis réessayez.");
+      btnLabel.textContent = "Parler à Léa";
+      talkBtn.disabled = false;
       return;
     }
 
@@ -254,6 +260,8 @@
       log("vapi.start() a répondu sans erreur.");
     } catch (e) {
       showError("Erreur de connexion : " + (e && e.message ? e.message : "réessayez."));
+      btnLabel.textContent = "Parler à Léa";
+      talkBtn.disabled = false;
     }
   });
   log("Écouteur de clic attaché au bouton.");
